@@ -1,11 +1,9 @@
 "use-strict";
-import * as AddSymbol from '../Functions/AddSymbol';
-import Count from '../Functions/Count';
+import AddSymbol from '../Functions/AddSymbol';
 
 function OutputFunction(event) {
   let field = document.getElementById("field");
-
-  field.value = Count(AddSymbol.leftOperand, AddSymbol.rightOperand, AddSymbol.operator)
+  field.value = AddSymbol("=");
 }
 
 export default OutputFunction;
