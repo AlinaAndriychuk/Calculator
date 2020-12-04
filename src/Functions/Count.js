@@ -4,8 +4,12 @@ function Count(leftOperand, rightOperand, operator) {
   let strLeft = leftOperand;
   let strRight = rightOperand;
 
-  if (strRight.includes("(")) {
+  if (strRight.toString().includes("(")) {
     strRight = strRight.split("(").join("").split(")").join("");
+  }
+  
+  if (strRight.toString().includes("%")) {
+    strRight = strLeft / 100 * strRight.slice(0, strRight.length - 1);
   }
 
   if (operator === "+") {

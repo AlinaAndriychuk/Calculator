@@ -24,8 +24,12 @@ function AddSymbol(event, anew) {
       enterRightOperand = false;
       return;
   } else if (anew === "addMemory") {
+    if (event.toString().startsWith("-")) {
+      rightOperand = "(" + event + ")";
+    } else {
       rightOperand += event;
-      return;
+    }
+    return;
   } else if (event === "m") {
     return Count(leftOperand, rightOperand, operator);
   } else if (event === "clean") {
@@ -64,7 +68,18 @@ function AddSymbol(event, anew) {
 
   let symbol = event.target.innerHTML;
 
-  if (event.target.closest(".numbers-container")) {
+  if (symbol === "%") {
+    if (enterRightOperand) {
+      if (rightOperand === "") return;
+      leftOperand = Count(leftOperand, rightOperand + symbol, operator);
+      field.value = leftOperand;
+      enterRightOperand = false;
+      rightOperand = "";
+      operator = "";
+    } else {
+      return;
+    }
+  } else if (event.target.closest(".numbers-container")) {
     if (enterRightOperand) {
       if (symbol === "." && !rightOperand.includes(".")) {
         if (lastSymbol === ")") {

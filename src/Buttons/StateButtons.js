@@ -26,7 +26,11 @@ function StateButtons() {
       field.value = memory;
       AddSymbol(memory, "setField");
     } else {
-      field.value = field.value + memory;
+      if(memory.toString().startsWith("-")) {
+        field.value = field.value + "(" + memory + ")";
+      } else {
+        field.value = field.value + memory;
+      }
       AddSymbol(memory, "addMemory");
     }
   };
