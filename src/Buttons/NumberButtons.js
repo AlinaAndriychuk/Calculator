@@ -12,7 +12,7 @@ function NumberButtons() {
         )
       })}
       <button className="btn btn--black btn--big" onClick={AddSymbol}>0</button>
-      <button className="btn btn--black">,</button>
+      <button className="btn btn--black" onClick={AddSymbol}>.</button>
     </div>
   )
 };

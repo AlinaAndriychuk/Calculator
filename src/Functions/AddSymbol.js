@@ -15,17 +15,18 @@ function AddSymbol(event, anew) {
     rightOperand = "";
     enterRightOperand = false;
     return leftOperand;
-  } else if (isFinite(event)) {
-    if (anew) {
+  } else if (anew === "setField") {
       leftOperand = event;
       rightOperand = "";
       enterRightOperand = false;
       return;
-    } else {
+  } else if (anew === "addMemory") {
       rightOperand += event;
       return;
-    }
   } else if (event === "m") {
+    if (rightOperand === "") {
+      return leftOperand;
+    }
     return Count(leftOperand, rightOperand, operator);
   }
 
@@ -34,12 +35,26 @@ function AddSymbol(event, anew) {
 
   if (event.target.closest(".numbers-container")) {
     if (enterRightOperand) {
-      rightOperand += symbol;
+      if (symbol === "." && !rightOperand.includes(".")) {
+        rightOperand += symbol;
+        field.value = str + symbol;
+      } else if (symbol !== ".") {
+        rightOperand += symbol;
+        field.value = str + symbol;
+      } else {
+        field.value = str;
+      }
     } else {
-      leftOperand += symbol;
+      if (symbol === "." && !leftOperand.includes(".")) {
+        leftOperand += symbol;
+        field.value = str + symbol;
+      } else if (symbol !== ".") {
+        leftOperand += symbol;
+        field.value = str + symbol;
+      } else {
+        field.value = str;
+      }
     }
-
-    field.value = str + symbol;
   } else if (event.target.closest(".actions-container")) {
     if (enterRightOperand) {
       leftOperand = Count(leftOperand, rightOperand, operator);
@@ -48,7 +63,7 @@ function AddSymbol(event, anew) {
       enterRightOperand = true;
     }
 
-    if ( !isFinite(lastSymbol) ) {
+    if (!isFinite(lastSymbol) && lastSymbol !== ".") {
       field.value = leftOperand.slice(0, field.value.length - 1) + symbol;
     } else {
       field.value = leftOperand + symbol;

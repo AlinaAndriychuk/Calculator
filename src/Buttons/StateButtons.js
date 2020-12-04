@@ -23,12 +23,12 @@ function StateButtons() {
     let field = document.getElementById("field");
     let lastSymbol = field.value.slice(field.value.length - 1, field.value.length);
 
-    if( isFinite(lastSymbol) ) {
+    if( isFinite(lastSymbol) || lastSymbol === ".") {
       field.value = memory;
-      AddSymbol(memory, true);
+      AddSymbol(memory, "setField");
     } else {
       field.value = field.value + memory;
-      AddSymbol(memory);
+      AddSymbol(memory, "addMemory");
     }
   };
 

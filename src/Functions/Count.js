@@ -1,14 +1,27 @@
 "use-strict";
 
 function Count(leftOperand, rightOperand, operator) {
+  let strLeft = leftOperand;
+  let strRight = rightOperand;
+
+  // if (strLeft.includes(",")) {
+  //   strLeft = strLeft.split(",");
+  //   strLeft = strLeft.join(".");
+  // }
+
+  // if (strRight.includes(",")) {
+  //   strRight = strRight.split(",");
+  //   strRight = strRight.join(".");
+  // }
+  
   if (operator === "+") {
-    return leftOperand = Number(leftOperand) + Number(rightOperand);
+    return Number(strLeft) + Number(strRight);
   } else if (operator === "×") {
-    return leftOperand = Number(leftOperand) * Number(rightOperand);
+    return Number(strLeft) * Number(strRight);
   } else if (operator === "-") {
-    return leftOperand = Number(leftOperand) - Number(rightOperand);
+    return Number(strLeft) - Number(strRight);
   } else {
-    return Number(leftOperand) / Number(rightOperand);
+    return Number(strLeft) / Number(strRight);
   }
 }
 
