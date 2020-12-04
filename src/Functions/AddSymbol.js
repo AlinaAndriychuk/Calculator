@@ -9,38 +9,79 @@ let enterRightOperand = false;
 function AddSymbol(event, anew) {
   let field = document.getElementById("field");
   let str = field.value;
+  let lastSymbol = str.slice(str.length - 1, str.length);
   
   if(event === "=") {
     leftOperand = Count(leftOperand, rightOperand, operator);
     rightOperand = "";
+    operator = "";
     enterRightOperand = false;
     return leftOperand;
   } else if (anew === "setField") {
       leftOperand = event;
       rightOperand = "";
+      operator = "";
       enterRightOperand = false;
       return;
   } else if (anew === "addMemory") {
       rightOperand += event;
       return;
   } else if (event === "m") {
-    if (rightOperand === "") {
-      return leftOperand;
-    }
     return Count(leftOperand, rightOperand, operator);
+  } else if (event === "clean") {
+    leftOperand = "";
+    rightOperand = "";
+    enterRightOperand = false;
+    operator = "";
+    field.value = "";
+    return;
+  } else if (event === "change") {
+    if(enterRightOperand) {
+      if (lastSymbol === operator) {
+        if (leftOperand.toString().startsWith("-")) {
+          leftOperand = leftOperand.slice(1);
+        } else {
+          leftOperand = "-" + leftOperand;
+        }
+      } else {
+        if (rightOperand.startsWith("(-")) {
+          rightOperand = rightOperand.slice(1);
+        } else {
+          rightOperand = "(-" + rightOperand + ")";
+        }
+      }
+    } else {
+      if (leftOperand.toString().startsWith("-")) {
+        leftOperand = leftOperand.slice(1);
+      } else {
+        leftOperand = "-" + leftOperand;
+      }
+    }
+    
+    field.value = leftOperand + operator + rightOperand;
+    return;
   }
 
   let symbol = event.target.innerHTML;
-  let lastSymbol = str.slice(str.length - 1, str.length);
 
   if (event.target.closest(".numbers-container")) {
     if (enterRightOperand) {
       if (symbol === "." && !rightOperand.includes(".")) {
-        rightOperand += symbol;
-        field.value = str + symbol;
+        if (lastSymbol === ")") {
+          rightOperand = rightOperand.slice(0, rightOperand.length - 1) + symbol + ")";
+          field.value = str.slice(0, str.length - 1) + symbol + ")";
+        } else {
+          rightOperand += symbol;
+          field.value = str + symbol;
+        }
       } else if (symbol !== ".") {
-        rightOperand += symbol;
-        field.value = str + symbol;
+        if (lastSymbol === ")") {
+          rightOperand = rightOperand.slice(0, rightOperand.length - 1) + symbol + ")";
+          field.value = str.slice(0, str.length - 1) + symbol + ")";
+        } else {
+          rightOperand += symbol;
+          field.value = str + symbol;
+        }
       } else {
         field.value = str;
       }
@@ -55,7 +96,7 @@ function AddSymbol(event, anew) {
         field.value = str;
       }
     }
-  } else if (event.target.closest(".actions-container")) {
+  } else if (event.target.closest(".btn--action")) {
     if (enterRightOperand) {
       leftOperand = Count(leftOperand, rightOperand, operator);
       rightOperand = "";
@@ -63,7 +104,7 @@ function AddSymbol(event, anew) {
       enterRightOperand = true;
     }
 
-    if (!isFinite(lastSymbol) && lastSymbol !== ".") {
+    if (!isFinite(lastSymbol) && lastSymbol !== "." && lastSymbol !== ")") {
       field.value = leftOperand.slice(0, field.value.length - 1) + symbol;
     } else {
       field.value = leftOperand + symbol;

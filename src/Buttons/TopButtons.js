@@ -1,15 +1,22 @@
 "use-strict"
-import React, {useState} from 'react';
+import React from 'react';
 import AddSymbol from '../Functions/AddSymbol';
-import Count from '../Functions/Count';
 
 function TopButtons() {
+  function cleanField() {
+    AddSymbol("clean")
+  }
+
+  function changeOperand() {
+    AddSymbol("change")
+  }
+
   return (
     <React.Fragment>
-      <button className="btn btn--gray">AC</button>
-      <button className="btn btn--gray">+/-</button>
-      <button className="btn btn--gray">%</button>
-      <button className="btn btn--orange">÷</button>
+      <button className="btn btn--gray" onClick={cleanField}>AC</button>
+      <button className="btn btn--gray" onClick={changeOperand}>+/-</button>
+      <button className="btn btn--gray" onClick={AddSymbol}>%</button>
+      <button className="btn btn--orange btn--action" onClick={AddSymbol}>÷</button>
     </React.Fragment>
   )
 };

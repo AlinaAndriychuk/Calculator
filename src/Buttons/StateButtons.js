@@ -22,7 +22,7 @@ function StateButtons() {
     let field = document.getElementById("field");
     let lastSymbol = field.value.slice(field.value.length - 1, field.value.length);
 
-    if( isFinite(lastSymbol) || lastSymbol === ".") {
+    if( isFinite(lastSymbol) || lastSymbol === "." || lastSymbol === ")") {
       field.value = memory;
       AddSymbol(memory, "setField");
     } else {

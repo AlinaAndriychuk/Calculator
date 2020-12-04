@@ -5,13 +5,13 @@ let buttonValues = ["×", "-", "+"];
 
 function Actions() {
   return (
-    <div className="actions-container">
+    <React.Fragment>
       {buttonValues.map((item, index)=> {
         return (
-          <button className="btn btn--orange" onClick={AddSymbol} key={index}>{item}</button>
+          <button className="btn btn--orange btn--action" onClick={AddSymbol} key={index}>{item}</button>
         )
       })}
-    </div>
+    </React.Fragment>
   )
 };
 
