@@ -8,10 +8,12 @@ import Actions from './Buttons/Actions';
 import EqualButton from './Buttons/EqualButton';
 import Field from './Field/Field';
 import StateButtons from './Buttons/StateButtons';
+import TopButtons from './Buttons/TopButtons';
 
 ReactDOM.render(
   <React.Fragment>
     <Field></Field>
+    <TopButtons></TopButtons>
     <StateButtons></StateButtons>
     <NumberButtons></NumberButtons>
     <Actions></Actions>

@@ -1,6 +1,5 @@
 "use-strict"
 import React, {useState} from 'react';
-import Field from '../Field/Field';
 import AddSymbol from '../Functions/AddSymbol';
 import Count from '../Functions/Count';
 
